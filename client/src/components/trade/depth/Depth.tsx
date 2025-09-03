@@ -39,7 +39,7 @@ export default function Depth({ market }: { market: string }) {
 
       mgr.deRegisterDepthCallback(room, onDepth);
     };
-  }, [market]);
+  }, [market, room]);
 
   return (
     <div className="flex flex-col h-full border-t border-border/20 pt-2">

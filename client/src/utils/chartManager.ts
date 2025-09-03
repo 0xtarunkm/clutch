@@ -6,13 +6,14 @@ import {
   CrosshairMode,
   ISeriesApi,
   UTCTimestamp,
+  IChartApi,
 } from 'lightweight-charts';
 
 export class ChartManager {
   private priceSeries: ISeriesApi<'Line'>;
   private volumeSeries: ISeriesApi<'Histogram'>;
   private lastUpdateTime: number = 0;
-  private chart: any;
+  private chart: IChartApi | null;
   private isDisposed: boolean = false;
   private currentBar: {
     close: number | null;
@@ -23,8 +24,8 @@ export class ChartManager {
   };
 
   constructor(
-    ref: any,
-    initialData: any[],
+    ref: HTMLDivElement,
+    initialData: { timestamp: number; close: number; volume: number }[],
     layout: { background: string; color: string }
   ) {
     console.log('chart data: ', initialData);
@@ -144,7 +145,14 @@ export class ChartManager {
     chart.timeScale().fitContent();
   }
 
-  public update(updatedPrice: any) {
+  public update(
+    updatedPrice: {
+      time: number;
+      close: number;
+      volume: number;
+      newCandleInitiated?: boolean;
+    }
+  ) {
     if (this.isDisposed || !this.chart) {
       console.warn('Attempted to update a disposed chart');
       return;

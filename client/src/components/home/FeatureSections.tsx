@@ -8,7 +8,7 @@ const FeatureSections = () => {
     <div className="w-full max-w-5xl mx-auto px-4 py-12">
       <div className="text-center mb-12">
         <h2 className="text-3xl md:text-4xl font-light mb-6">
-          Don't Just Watch Events.
+          Don&apos;t Just Watch Events.
           <br />
           Predict Them. Profit From Them.
         </h2>
@@ -37,7 +37,7 @@ const FeatureSections = () => {
           <h3 className="text-white text-xl font-light mb-3">Predict Smarter.</h3>
           <p className="text-zinc-400 text-sm">
             Turn your knowledge into profit by predicting outcomes of real-world events. 
-            From sports and politics to crypto prices and market trends - if it's predictable, you can trade it on Clutch.
+            From sports and politics to crypto prices and market trends - if it&apos;s predictable, you can trade it on Clutch.
           </p>
         </div>
 

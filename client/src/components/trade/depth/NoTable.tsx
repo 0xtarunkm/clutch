@@ -2,7 +2,7 @@ export const NoTable = ({ asks }: { asks: [string, string][] }) => {
   const relevantAsks = asks.slice(0, 30);
   let currentTotal = 0;
 
-  let asksWithTotal: [string, string, number][] = [];
+  const asksWithTotal: [string, string, number][] = [];
 
   for (let i = 0; i < relevantAsks.length; i++) {
     const [price, quantity] = relevantAsks[i];

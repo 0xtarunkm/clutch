@@ -7,6 +7,15 @@ import SparklineChart from '../ui/SparklineChart';
 import { MarketIcon } from '../market/MarketIcon';
 import { PaginationControls } from '../market/PaginationControl';
 
+interface ApiMarket {
+  id: string;
+  name: string;
+  base_asset: string;
+  quote_asset: string;
+  end_time: number[];
+  status: string;
+}
+
 const parseMarketTime = (timeArray: number[]): Date | null => {
   if (!timeArray || timeArray.length < 2) return null;
   const [year, dayOfYear, hour = 0, minute = 0, second = 0] = timeArray;
@@ -90,7 +99,7 @@ const PriceTable = () => {
           throw new Error('API did not return an array');
         }
 
-        const processedMarkets: Market[] = data.map((apiMarket: any) => {
+        const processedMarkets: Market[] = data.map((apiMarket: ApiMarket) => {
           const endTime = parseMarketTime(apiMarket.end_time);
 
           let mockPriceChangePercent = 0;
@@ -121,8 +130,8 @@ const PriceTable = () => {
           };
         });
         setMarkets(processedMarkets);
-      } catch (err: any) {
-        setError(err.message || 'Failed to fetch prediction markets');
+      } catch (err: unknown) {
+        setError(err instanceof Error ? err.message : 'Failed to fetch prediction markets');
         console.error('Error fetching prediction markets:', err);
       } finally {
         setIsLoading(false);

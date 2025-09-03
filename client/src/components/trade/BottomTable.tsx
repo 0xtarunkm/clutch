@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import {
   Tabs,
   TabsContent,
@@ -18,7 +18,7 @@ export default function BottomTable({ market }: { market: string }) {
 
   const room = `trade@${market}` as `trade@${string}`;
 
-  const fetchTrades = async () => {
+  const fetchTrades = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -35,7 +35,7 @@ export default function BottomTable({ market }: { market: string }) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [market]);
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -72,7 +72,7 @@ export default function BottomTable({ market }: { market: string }) {
       mgr.unsubscribe(room);
       mgr.deRegisterTradeCallback(room, onTrade);
     };
-  }, [market]);
+  }, [market, room, fetchTrades]);
 
   return (
     <div className="h-48 border-t border-border/20">

@@ -1,12 +1,11 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useCallback } from 'react';
 import dynamic from 'next/dynamic';
 import ChartControl from './ChartControl';
 import { ChartManager } from '@/src/utils/chartManager';
 import { KLine } from '@/src/utils/types';
 import { getKlines } from '@/src/utils/httpClient';
-import { UTCTimestamp } from 'lightweight-charts';
 import { useChartStore } from '@/src/utils/store/chartStore';
 
 export default function ChartArea({ market }: { market: string }) {
@@ -30,7 +29,7 @@ export default function ChartArea({ market }: { market: string }) {
     };
   };
 
-  const initializeChart = async () => {
+  const initializeChart = useCallback(async () => {
     if (!containerRef.current) return;
 
     const now = Date.now();
@@ -76,9 +75,9 @@ export default function ChartArea({ market }: { market: string }) {
 
     lastBarTsRef.current =
       bars.length > 0 ? bars[bars.length - 1].timestamp : now;
-  };
+  }, [interval, market]);
 
-  const fetchLatestDataAndUpdate = async () => {
+  const fetchLatestDataAndUpdate = useCallback(async () => {
     if (!managerRef.current) {
       console.log('Chart manager not initialized, skipping fetch.');
       return;
@@ -105,20 +104,13 @@ export default function ChartArea({ market }: { market: string }) {
 
       const latestBar = newBars[newBars.length - 1];
 
-      const barTimeForChart = Math.floor(
-        latestBar.timestamp / 1000
-      ) as UTCTimestamp;
-
-      const updateData: any = {
-        time: barTimeForChart,
-        open: latestBar.open,
-        high: latestBar.high,
-        low: latestBar.low,
-        close: latestBar.close,
-        volume: latestBar.volume,
-      };
-
       const isNewCandlePeriod = latestBar.timestamp > lastBarTsRef.current;
+      const updateData = {
+        time: latestBar.timestamp,
+        close: latestBar.close ?? 0,
+        volume: latestBar.volume ?? 0,
+        newCandleInitiated: isNewCandlePeriod,
+      };
 
       managerRef.current?.update(updateData);
 
@@ -126,7 +118,7 @@ export default function ChartArea({ market }: { market: string }) {
         lastBarTsRef.current = latestBar.timestamp;
       }
     }
-  };
+  }, [interval, market]);
 
   useEffect(() => {
     initializeChart();
@@ -138,7 +130,7 @@ export default function ChartArea({ market }: { market: string }) {
         intervalIdRef.current = null;
       }
     };
-  }, [market, interval]);
+  }, [market, interval, initializeChart]);
 
   useEffect(() => {
     if (intervalIdRef.current) {
@@ -152,7 +144,7 @@ export default function ChartArea({ market }: { market: string }) {
         intervalIdRef.current = null;
       }
     };
-  }, [market, interval]);
+  }, [market, interval, fetchLatestDataAndUpdate]);
 
   const ChatArea = dynamic(() => import('../chat/ChatArea'), { ssr: false });
 

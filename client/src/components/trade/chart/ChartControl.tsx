@@ -2,12 +2,11 @@
 
 import { Button } from '@/src/components/ui/button';
 import { Tabs, TabsList, TabsTrigger } from '@/src/components/ui/tabs';
-import { ChartIcon, BookIcon, SettingsIcon } from '@/src/components/icons';
+import { ChartIcon } from '@/src/components/icons';
 import { useChartStore } from '@/src/utils/store/chartStore';
-import { MessageCircle } from 'lucide-react';
 
 export default function ChartControl() {
-  const { interval, chartType, view, setInterval, setChartType, toggleView } =
+  const { interval, chartType, setInterval, setChartType } =
     useChartStore();
 
   return (

@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { GlobeIcon } from '@/src/components/icons';
 import { Button } from '@/src/components/ui/button';
 import Image from 'next/image';
 import { signOut, useSession } from 'next-auth/react';
@@ -26,6 +25,13 @@ export function Navbar({ activePage = 'home' }: NavbarProps) {
 
         <div className="flex items-center gap-4">
           <div className="hidden sm:flex items-center gap-2">
+            {/* Placeholder nav links if design calls for them; active link gets underline */}
+            <div className="flex gap-6 text-sm">
+              {['trade','rewards','learn','news'].map(p => (
+                <Link key={p} href={p === 'trade' ? '/trade/BTC-USD' : `/${p}`}
+                  className={`hover:text-white transition-colors ${activePage===p ? 'font-semibold underline underline-offset-4' : 'text-muted-foreground'}`}>{p.charAt(0).toUpperCase()+p.slice(1)}</Link>
+              ))}
+            </div>
             {session.data?.user?.email ? (
               <div className="flex items-center space-x-6">
                 <div className="flex gap-6 text-sm">
@@ -58,24 +64,5 @@ export function Navbar({ activePage = 'home' }: NavbarProps) {
         </div>
       </nav>
     </header>
-  );
-}
-
-interface NavLinkProps {
-  href: string;
-  active?: boolean;
-  children: React.ReactNode;
-}
-
-function NavLink({ href, active, children }: NavLinkProps) {
-  return (
-    <Link
-      href={href}
-      className={`text-sm font-medium transition-colors hover:text-white ${
-        active ? 'text-white' : 'text-muted-foreground'
-      }`}
-    >
-      {children}
-    </Link>
   );
 }

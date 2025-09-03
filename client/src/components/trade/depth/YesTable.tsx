@@ -2,7 +2,7 @@ export const YesTable = ({ bids }: { bids: [string, string][] }) => {
   const relevantBids = bids.slice(0, 30);
   let currentTotal = 0;
 
-  let bidsWithTotal: [string, string, number][] = [];
+  const bidsWithTotal: [string, string, number][] = [];
 
   for (let i = 0; i < relevantBids.length; i++) {
     const [price, quantity] = relevantBids[i];

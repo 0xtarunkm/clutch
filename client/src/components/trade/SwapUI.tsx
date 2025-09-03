@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, ChangeEvent } from 'react';
+import { useState, useEffect, ChangeEvent, useCallback, useMemo } from 'react';
 import axios from 'axios';
 import { Button } from '@/src/components/ui/button';
 import { Input } from '@/src/components/ui/input';
@@ -61,18 +61,12 @@ export default function SwapUI({ baseCurrency, quoteCurrency }: SwapUIProps) {
 
   const market = `${baseCurrency.replace(/_+$/, '')}_${quoteCurrency}`;
 
-  const sideMapping: Record<OrderType, string> = {
-    BUY: 'Bid',
-    SELL: 'Ask',
-  };
+  const sideMapping = useMemo<Record<OrderType, string>>(
+    () => ({ BUY: 'Bid', SELL: 'Ask' }),
+    []
+  );
 
-  useEffect(() => {
-    if (orderMode === 'MKT' && amount && parseFloat(amount) > 0) {
-      getQuote();
-    }
-  }, [amount, orderType, orderMode]);
-
-  const getQuote = async (): Promise<void> => {
+  const getQuote = useCallback(async (): Promise<void> => {
     if (!amount || parseFloat(amount) <= 0) return;
 
     setLoading(true);
@@ -98,7 +92,14 @@ export default function SwapUI({ baseCurrency, quoteCurrency }: SwapUIProps) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [amount, market, orderType, sideMapping]);
+
+  useEffect(() => {
+    if (orderMode === 'MKT' && amount && parseFloat(amount) > 0) {
+      getQuote();
+    }
+  }, [amount, orderType, orderMode, getQuote]);
+
 
   const createOrder = async (): Promise<void> => {
     setLoading(true);

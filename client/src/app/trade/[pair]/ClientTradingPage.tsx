@@ -1,6 +1,5 @@
 'use client';
 
-import { useChartStore } from '@/src/utils/store/chartStore';
 import BottomTable from '@/src/components/trade/BottomTable';
 import ChartArea from '@/src/components/trade/chart/ChartArea';
 import SwapUI from '@/src/components/trade/SwapUI';

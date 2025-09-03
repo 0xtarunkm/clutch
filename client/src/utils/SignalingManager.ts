@@ -16,7 +16,7 @@ type RoomPayloadMap = {
 export class SignalingManager {
   private ws: WebSocket;
   private static instance: SignalingManager;
-  private buffer: any[] = [];
+  private buffer: Record<string, unknown>[] = [];
   private depthCallbacks: Record<string, Callback<DepthPayload>[]> = {};
   private tradeCallbacks: Record<string, Callback<TradePayload>[]> = {};
   private tickerCallbacks: Record<string, Callback<TickerPayload>[]> = {};
@@ -102,8 +102,8 @@ export class SignalingManager {
     this.sendMessage(message);
   }
 
-  public sendMessage(msg: any) {
-    const withId = { ...msg, id: this.id++ };
+  public sendMessage(msg: Record<string, unknown>) {
+    const withId = { ...msg, id: this.id++ } as Record<string, unknown> & { id: number };
     if (!this.opened) {
       this.buffer.push(withId);
     } else {

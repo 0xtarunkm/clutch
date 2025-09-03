@@ -21,7 +21,6 @@ export default function TradeHeader({
 }: TradeHeaderProps) {
   const [name, setName] = useState<string>();
   const [price, setPrice] = useState<string>('');
-  const [quantity, setQuantity] = useState<string>('');
   const [priceChange, setPriceChange] = useState<number>(0);
   const [prevPrice, setPrevPrice] = useState<number | null>(null);
   const session = useSession();
@@ -40,12 +39,11 @@ export default function TradeHeader({
 
   useEffect(() => {
     const onTicker = (data: TickerPayload) => {
-      const { p, q, t } = data.data;
+      const { p } = data.data;
 
       if (p) {
         const currentPrice = parseFloat(p);
         setPrice(p);
-        setQuantity(q || '');
 
         if (prevPrice !== null) {
           const change = ((currentPrice - prevPrice) / prevPrice) * 100;

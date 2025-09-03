@@ -7,7 +7,8 @@ import { Market } from '@/src/utils/types';
 export default function MarketsTable() {
   const [markets, setMarkets] = useState<Market[]>([]);
   const [activeTab, setActiveTab] = useState<string>('All Assets');
-  const [currentPage, setCurrentPage] = useState<number>(1);
+  // Pagination state removed until pagination logic implemented to avoid unused var lint error
+  const [/*currentPage*/, setCurrentPage] = useState<number>(1);
   const [sortBy, setSortBy] = useState<keyof Market | null>(null);
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
 
@@ -39,11 +40,6 @@ export default function MarketsTable() {
 
   const handlePageChange = (page: number): void => {
     setCurrentPage(page);
-  };
-
-  const formatEndTime = (timeArray: number[]): string => {
-    if (!timeArray || timeArray.length < 2) return '';
-    return `${timeArray[0]}-${String(timeArray[1]).padStart(2, '0')}`;
   };
 
   return (

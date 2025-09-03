@@ -12,6 +12,14 @@ export type SparklineData = {
   type: 'up' | 'down' | 'volatile';
 };
 
+interface ApiResponse {
+  success?: boolean;
+  message?: string;
+  data?: unknown[];
+  klines?: unknown[];
+  results?: unknown[];
+}
+
 type ApiKLine = {
   close: string;
   end: string;
@@ -71,7 +79,7 @@ const SparklineChart: React.FC<SparklineChartProps> = ({
             const errJson = await response.json();
             errorData =
               errJson.message || errJson.error || JSON.stringify(errJson);
-          } catch (parseError) {
+          } catch {
             errorData = await response.text();
           }
           throw new Error(
@@ -100,11 +108,11 @@ const SparklineChart: React.FC<SparklineChartProps> = ({
             responseData !== null
           ) {
             if (
-              (responseData as any).success === false &&
-              (responseData as any).message
+              (responseData as ApiResponse).success === false &&
+              (responseData as ApiResponse).message
             ) {
               throw new Error(
-                `API returned error: ${(responseData as any).message}`
+                `API returned error: ${(responseData as ApiResponse).message}`
               );
             }
           }
@@ -145,9 +153,10 @@ const SparklineChart: React.FC<SparklineChartProps> = ({
         }
 
         setChartData({ data: processedData, type });
-      } catch (e: any) {
-        console.error(`Error fetching or processing k-lines for ${name}:`, e);
-        setError(e.message || 'Could not fetch or process chart data.');
+  } catch (e) {
+    const errMsg = e instanceof Error ? e.message : 'Unknown error';
+    console.error(`Error fetching or processing k-lines for ${baseAsset}:`, e);
+    setError(errMsg || 'Could not fetch or process chart data.');
         setChartData(null);
       } finally {
         setIsLoading(false);
@@ -155,7 +164,7 @@ const SparklineChart: React.FC<SparklineChartProps> = ({
     };
 
     fetchKlinesData();
-  }, [name, daysHistory, interval]);
+  }, [baseAsset, quoteAsset, daysHistory, interval]);
 
   console.log('main chart data: ', chartData);
 

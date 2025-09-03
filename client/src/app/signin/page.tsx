@@ -1,7 +1,6 @@
 'use client';
 
 import { GoogleIcon } from '@/src/components/icons';
-import { Input } from '@/src/components/ui/input';
 import { signIn } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
