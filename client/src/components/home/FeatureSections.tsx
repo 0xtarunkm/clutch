@@ -10,8 +10,12 @@ const FeatureSections = () => {
         <h2 className="text-3xl md:text-4xl font-light mb-6">
           Don't Just Watch Events.
           <br />
-          Predict them.
+          Predict Them. Profit From Them.
         </h2>
+        <p className="text-zinc-400 text-lg mb-8 max-w-2xl mx-auto">
+          Clutch is the next-generation prediction market platform where your insights become investments. 
+          Trade on real-world events with complete privacy and transparency.
+        </p>
         <div className="flex justify-center space-x-4">
           <Link
             href="/signin"
@@ -23,50 +27,47 @@ const FeatureSections = () => {
             href="/signup"
             className="px-6 py-2 rounded-full bg-[#FF6B00] hover:bg-[#FF6B00]/90 text-white text-sm transition-colors"
           >
-            Sign Up
+            Start Predicting
           </Link>
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="bg-zinc-900/50 border border-zinc-800 rounded-xl p-6">
-          <h3 className="text-white text-xl font-light mb-3">Trade Faster.</h3>
+          <h3 className="text-white text-xl font-light mb-3">Predict Smarter.</h3>
           <p className="text-zinc-400 text-sm">
-            Cube is built for speed with snappy interactions and CPU-optimized
-            rendering. Your orders are executed in a flash. We are setting a new
-            standard for digital asset exchanges.
+            Turn your knowledge into profit by predicting outcomes of real-world events. 
+            From sports and politics to crypto prices and market trends - if it's predictable, you can trade it on Clutch.
           </p>
         </div>
 
         <div className="bg-zinc-900/50 border border-zinc-800 rounded-xl p-6">
-          <h3 className="text-white text-xl font-light mb-3">Trade Safer.</h3>
+          <h3 className="text-white text-xl font-light mb-3">Trade Privately.</h3>
           <p className="text-zinc-400 text-sm">
-            Play to earn with Cube's Telegram minigame 'Hodl High'. Tap and
-            stack Blocks to redeem for cash and crypto. Climb the leaderboards
-            and compete for rewards.
+            Your predictions remain completely private using advanced Multi-Party Computation (MPC) technology. 
+            Trade with confidence knowing your strategies and positions are hidden until market resolution.
           </p>
           <Link
-            href="#"
+            href="/privacy"
             className="text-[#FF6B00] text-sm hover:underline mt-3 inline-block"
           >
-            Learn more →
+            Learn about privacy →
           </Link>
         </div>
 
         <div className="bg-zinc-900/50 border border-zinc-800 rounded-xl p-6">
           <h3 className="text-white text-xl font-light mb-3">
-            Trade Different.
+            Earn Rewards.
           </h3>
           <p className="text-zinc-400 text-sm">
-            Cube is built for speed with snappy interactions and CPU-optimized
-            rendering. Your orders are executed in a flash. We are setting a new
-            standard for digital asset exchanges.
+            Accurate predictions are rewarded proportionally. The more precise your forecast, 
+            the bigger your share of the prize pool. Built on Solana for lightning-fast settlements and minimal fees.
           </p>
           <Link
-            href="#"
+            href="/how-it-works"
             className="text-[#FF6B00] text-sm hover:underline mt-3 inline-block"
           >
-            Learn more →
+            How rewards work →
           </Link>
         </div>
       </div>

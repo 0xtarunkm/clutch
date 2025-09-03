@@ -3,9 +3,9 @@ import './globals.css';
 import { Providers } from './providers';
 
 export const metadata: Metadata = {
-  title: "Clutch | The World's Fastest Cricket Prediction Market",
+  title: "Clutch | Privacy-First Prediction Markets",
   description:
-  "Clutch is the world's fastest cricket prediction market. Built by and for cricket lovers, Clutch is the most liquid, secure and advanced cricket prediction market.",
+    "Clutch is the next-generation prediction market platform where your insights become investments. Trade on real-world events with complete privacy using advanced MPC technology. Predict. Win. Earn.",
 };
 
 export default function RootLayout({

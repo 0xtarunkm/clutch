@@ -116,14 +116,14 @@ const PriceTable = () => {
               : '?',
             bgColor: stringToColor(apiMarket.base_asset || 'default'),
             endTimeEpoch: endTime ? endTime.getTime() : 0,
-            mockCurrentPrice: 50,
+            mockCurrentPrice: Math.random() * 100, // Random probability for prediction markets
             mockPriceChangePercent: mockPriceChangePercent,
           };
         });
         setMarkets(processedMarkets);
       } catch (err: any) {
-        setError(err.message || 'Failed to fetch markets');
-        console.error('Error fetching markets:', err);
+        setError(err.message || 'Failed to fetch prediction markets');
+        console.error('Error fetching prediction markets:', err);
       } finally {
         setIsLoading(false);
       }
@@ -250,7 +250,7 @@ const PriceTable = () => {
 
   if (isLoading)
     return (
-      <div className="text-center py-10 text-white">Loading markets...</div>
+      <div className="text-center py-10 text-white">Loading prediction markets...</div>
     );
   if (error)
     return (
@@ -261,6 +261,13 @@ const PriceTable = () => {
 
   return (
     <div className="w-full max-w-5xl mx-auto px-4 py-6">
+      <div className="mb-6">
+        <h2 className="text-2xl font-light text-white mb-2">Live Prediction Markets</h2>
+        <p className="text-zinc-400 text-sm">
+          Explore active markets and make your predictions on real-world events
+        </p>
+      </div>
+      
       <div className="flex flex-wrap gap-3 mb-5 py-2">
         <button
           className={`px-5 py-1.5 rounded-full text-xs font-medium transition-colors ${
@@ -317,7 +324,7 @@ const PriceTable = () => {
         </div>
         <input
           type="text"
-          placeholder="Search markets..."
+          placeholder="Search prediction markets..."
           value={searchQuery}
           onChange={(e) => {
             setSearchQuery(e.target.value);
@@ -333,7 +340,7 @@ const PriceTable = () => {
             className="col-span-4 flex items-center text-left hover:text-zinc-300 transition-colors"
             onClick={() => handleSort('name')}
           >
-            Market{' '}
+            Event{' '}
             <ChevronDown
               className={`h-3 w-3 ml-1 transition-transform ${
                 sortField === 'name' && sortDirection === 'asc'
@@ -355,7 +362,7 @@ const PriceTable = () => {
               }`}
             />
           </button>
-          <div className="col-span-3 text-left">Graph</div>
+          <div className="col-span-3 text-left">Probability Trend</div>
         </div>
 
         <div className="divide-y divide-zinc-800">
@@ -391,7 +398,7 @@ const PriceTable = () => {
 
                 <div className="col-span-4 flex items-center space-x-3">
                   <Link
-                    href={`/trade/${market.base_asset}_${market.quote_asset}`}
+                    href={`/predict/${market.base_asset}_${market.quote_asset}`}
                     className="flex items-center space-x-3"
                     passHref
                   >
@@ -401,7 +408,7 @@ const PriceTable = () => {
                         {market.name}
                       </div>
                       <div className="text-zinc-500 text-xs mt-0.5">
-                        {market.base_asset}/{market.quote_asset}
+                        Prediction Market • Ends {market.formattedEndTime}
                       </div>
                     </div>
                   </Link>
@@ -409,7 +416,7 @@ const PriceTable = () => {
 
                 <div className="col-span-2 flex items-center">
                   <Link
-                    href={`/trade/${market.base_asset}_${market.quote_asset}`}
+                    href={`/predict/${market.base_asset}_${market.quote_asset}`}
                     className="w-full"
                     passHref
                   >
@@ -446,8 +453,8 @@ const PriceTable = () => {
           ) : (
             <div className="px-5 py-10 text-center text-zinc-500">
               {activeFilter === 'favorites' && favorites.length === 0
-                ? 'No favorite markets yet.'
-                : 'No markets found.'}
+                ? 'No favorite prediction markets yet.'
+                : 'No prediction markets found.'}
             </div>
           )}
         </div>
@@ -463,11 +470,11 @@ const PriceTable = () => {
 
       <div className="mt-4 text-xs text-zinc-500 flex justify-between items-center">
         <div>
-          Showing {paginatedMarkets.length} of {filteredMarkets.length} markets{' '}
+          Showing {paginatedMarkets.length} of {filteredMarkets.length} prediction markets{' '}
           {activeFilter !== 'all' &&
             `(filtered by ${
               activeFilter.startsWith('base:')
-                ? `asset ${activeFilter.substring(5)}`
+                ? `category ${activeFilter.substring(5)}`
                 : activeFilter
             })`}{' '}
           {searchQuery && `matching "${searchQuery}"`}
