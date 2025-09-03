@@ -8,7 +8,7 @@ this prediction market combines the transparency of public betting with the inte
 
 ## architecture
 
-![architecture diagram](https://github.com/user-attachments/assets/128e3030-3661-4043-b7cd-de04e5c63540)
+<img width="1064" alt="Screenshot 2025-02-11 at 5 50 06 PM" src="https://github.com/user-attachments/assets/6b31f943-ba80-435c-b7f7-7f06b9d34259" />
 
 the system operates through a hybrid model where public transparency meets confidential resolution, creating a trustless environment for prediction markets.
 
@@ -56,7 +56,7 @@ arcium's mpc capabilities ensure that individual votes remain hidden during coll
 
 watch the system in action:
 
-![demo video](https://github.com/user-attachments/assets/6b31f943-ba80-435c-b7f7-7f06b9d34259)
+https://github.com/user-attachments/assets/128e3030-3661-4043-b7cd-de04e5c63540
 
 ## unique value proposition
 
@@ -71,7 +71,3 @@ unlike traditional prediction markets that suffer from oracle manipulation or ce
 ## getting started
 
 detailed setup and deployment instructions for running your own arcium prediction market instance.
-
-## technical specifications
-
-comprehensive documentation covering smart contract architecture, mpc integration patterns, and orderbook implementation details.
