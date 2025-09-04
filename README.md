@@ -2,6 +2,12 @@
 
 a decentralized prediction market leveraging arcium's confidential computing infrastructure for secure, transparent, and verifiable outcome resolution.
 
+## demo
+
+watch the system in action:
+
+https://github.com/user-attachments/assets/128e3030-3661-4043-b7cd-de04e5c63540
+
 ## overview
 
 this prediction market combines the transparency of public betting with the integrity of confidential voting mechanisms. built on arcium, it ensures that while market activities remain visible, the resolution process maintains confidentiality until completion, preventing manipulation and ensuring fair outcomes.
@@ -51,12 +57,6 @@ quorum members stake tokens that face slashing penalties for incorrect votes, al
 ### confidential computing advantages
 
 arcium's mpc capabilities ensure that individual votes remain hidden during collection while still enabling public verification of the final tally. this prevents vote buying, coordination attacks, and outcome manipulation.
-
-## demo
-
-watch the system in action:
-
-https://github.com/user-attachments/assets/128e3030-3661-4043-b7cd-de04e5c63540
 
 ## unique value proposition
 
